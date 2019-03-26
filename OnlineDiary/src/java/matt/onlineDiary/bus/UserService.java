@@ -27,19 +27,21 @@ public class UserService {
         return true;
     }
     
-    public User createNewUser(User u){
-        boolean ok = true;
-        
-        if (ok){
+    public User createNewUser(User u){        
+        if (!this.userExists(u.getUsername())){
             uF.create(u);
-            return u;
         }else{
             return null;
         }
+        return u;
     }
     
     public List<User> findAllUsers(){
         return uF.findAll();
+    }
+
+    private boolean userExists(String username) {
+        return uF.find(username) != null;
     }
     
 }
