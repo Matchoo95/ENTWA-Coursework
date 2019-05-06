@@ -32,11 +32,11 @@ public class UserFacade extends AbstractFacade<User> {
     public List<User> search(String searchText) {
         List<User> users;
         users = this.getEntityManager().createQuery(
-        "SELECT user FROM User user WHERE LOWER(user.username) LIKE :username OR"
-                + " LOWER(user.firstName) LIKE :firstName OR LOWER(user.lastName)"
+        "SELECT u FROM User u WHERE LOWER(u.username) LIKE :username OR"
+                + " LOWER(u.firstName) LIKE :firstName OR LOWER(u.lastName)"
                 + " LIKE :lastName OR LOWER(user.address) LIKE :address OR"
-                + " LOWER(user.postcode) LIKE :postcode OR LOWER(user.phone)"
-                + " LIKE :phone OR LOWER(user.email) LIKE :email")                
+                + " LOWER(u.postcode) LIKE :postcode OR LOWER(u.phone)"
+                + " LIKE :phone OR LOWER(u.email) LIKE :email")                
                 .setParameter("username", searchText.toLowerCase())
                 .setParameter("firstName", searchText.toLowerCase())
                 .setParameter("lastName", searchText.toLowerCase())
@@ -53,7 +53,7 @@ public class UserFacade extends AbstractFacade<User> {
     public User findUser(String username) {
         List<User> users = this.getEntityManager().createQuery(
                 "SELECT u FROM User u WHERE (u.username = :username)")
-                .setParameter("userName", username).setMaxResults(1).getResultList();
+                .setParameter("username", username).setMaxResults(1).getResultList();
         if (users.isEmpty())
             return null; 
         return users.get(0);
@@ -63,7 +63,7 @@ public class UserFacade extends AbstractFacade<User> {
         List<User> users = this.getEntityManager().createQuery(
                 "SELECT u FROM User u WHERE (u.username = :username AND u.password = :password)"
                 + "OR(u.email = :username AND u.password = :password)")
-                .setParameter("userName", username).setParameter("userName", username)
+                .setParameter("username", username).setParameter("username", username)
                 .setMaxResults(1).getResultList();
         if (users.isEmpty())
             return null; 
