@@ -5,11 +5,15 @@
  */
 package matt.onlineDiary.bus;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import matt.onlineDiary.ents.Appointment;
+import matt.onlineDiary.ents.User;
 import matt.onlineDiary.pers.AppointmentFacade;
+import matt.onlineDiary.except.EndStartTimeException;
+import matt.onlineDiary.except.ClashException;
 
 /**
  *
@@ -20,7 +24,7 @@ public class AppointmentService {
     @EJB
     private AppointmentFacade aF;
 
-    public Appointment editAppointment(Appointment appointment) {
+    public Appointment appointmentToEdit(Appointment appointment) {
         aF.edit(appointment);
         return appointment;
     }
@@ -29,9 +33,15 @@ public class AppointmentService {
         return aF.find(appointment.getId());
     }
 
-    public Appointment createNewAppointment(Appointment appointment) {
+    public Appointment createNewAppointment(Appointment appointment) throws EndStartTimeException, ClashException {
+        if (appointment.getEndDate().before(appointment.getStartDate())) {
+            throw new EndStartTimeException(appointment);
+        }        
+        if (!this.checkPeopleInvolved(appointment)) { 
+            throw new ClashException(appointment);
+        }
         aF.create(appointment);
-        return appointment;
+        return appointment;       
     }
     
     public Appointment removeAppointment(Appointment appointment) {
@@ -39,25 +49,24 @@ public class AppointmentService {
         return appointment;
     }
 
-//    public List<Appointment> searchAppointment(User u) {
-//        return aF.search(u);
-//    }
-//
-//    public List<Appointment> searchAppointment(Date d) {
-//        return aF.search(d);
-//    }
-//    
-//    private boolean checkInvolvedUsers(Appointment a) {
-//        for (User u : a.getPeopleInvolved()) {
-//            if (aF.search(u, a) != null) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
+    public List<Appointment> searchForAppointment(User user) {
+        return aF.search(user);
+    }
+
+    public List<Appointment> searchForAppointment(Date date) {
+        return aF.search(date);
+    }
 
     public List<Appointment> getAllAppointments() {
         return aF.findAll();
     }
 
+    private boolean checkPeopleInvolved(Appointment appointment) {
+        for (User user : appointment.getPeopleInvolved()) { 
+            if (aF.search(user, appointment) != null) { 
+                return false;
+            }
+        }
+        return true;
+    }
 }

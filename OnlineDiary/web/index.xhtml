@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Online Diary</title>
         <link rel="stylesheet" href="styles/style.css" />
@@ -11,27 +12,26 @@
         <h1>Online Diary</h1>
         
         <ul>
-            <li><h:link value="Home" outcome="index.xhtml"/></li>
-            <li><h:link value="Appointments" outcome="appointments.xhtml"/></li>
-            <li><h:link value="Notifications" outcome="notifications.xhtml"/></li>
-            <li><h:link value="Reports" outcome="reports.xhtml"/></li>
+            <li><h:link value="Start" outcome="start.xhtml"/></li>
         </ul>
+        
+        <h:form>
+                <h:commandLink action="start"></h:commandLink>
+        </h:form>
         
         <h2>Login</h2>
         
         <h:form id="loginForm">
+            <h2>Use "admin" for demo</h2>
             <h:outputLabel for="username">Username: </h:outputLabel>
-            <h:inputText value="#{UserController.loggingInUser.username}" 
+            <h:inputText value="#{SignInController.username}" 
                          required="true" />
             <br/>
             <h:outputLabel for="password">Password:  </h:outputLabel>
-            <h:inputSecret value="#{userController.loggingInUser.password}" 
+            <h:inputSecret value="#{SignInController.password}" 
                          required="true" />           
             <br />
-            <h:commandButton value="Login" action="#{userController.doUserLogin()}" />
+            <h:commandButton value="Login" action="#{SignInController.doSignIn()}" />
         </h:form>
-        
-        <p>Or click <h:link value="HERE" outcome="register.xhtml"/> to register</p>
-        
     </h:body>
 </html>

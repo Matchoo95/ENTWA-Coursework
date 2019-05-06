@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <ui:composition template="../resources/template/commonPrivateLayout.xhtml">
+            <ui:define name="header">
+                <h:form rendered="#{appointmentController.editingAppointment.id eq null}">
+                    <h:commandLink action="appointments"><icon name="glyphicon-arrow-up" /></h:commandLink>
+                </h:form>
+                <h:form rendered="#{appointmentController.editingAppointment.id ne null}">
+                    <h:commandLink onclick="history.go(-1);return false;" action="browseAppointments"><icon name="glyphicon-arrow-up" /></h:commandLink>
+                </h:form>
+                <h1>
+                    <h:outputText value="Create new appointment" rendered="#{appointmentController.editingAppointment.id eq null}" />
+                    <h:outputText value="Editing appointment: #{appointmentController.editingAppointment.id}" rendered="#{appointmentController.editingAppointment.id ne null}" />
+                </h1>
+            </ui:define>
+            <ui:define name="content">
+                <row>
+                    <column styleClass="contentBackground" span="12">
+                        <h:form id="newAppointmentForm">
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="startTime">Start</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <dateTimePicker id="startTime" label="Start" renderLabel="false" value="#{appointmentController.editingAppointment.startTime.time}" required="true" />
+                                </column>
+                                <column span="5">
+                                    <message for="startTime"/>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="endTime">End</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <dateTimePicker id="endTime" label="End" renderLabel="false" value="#{appointmentController.editingAppointment.endTime.time}" required="true" />
+                                </column>
+                                <column span="5">
+                                    <message for="endTime"/>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="description">Description</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <h:inputText id="description" label="Description" value="#{appointmentController.editingAppointment.description}">
+                                        <f:validateLength minimum="1" />
+                                    </h:inputText>
+                                </column>
+                                <column span="5">
+                                    <message for="description"/>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="attendees">Attendees</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <h:selectManyListbox id="attendees" label="Attendees" value="#{appointmentController.attendeeUsers}" required="true">
+                                        <f:selectItems value="#{clientController.itemsAvailableSelectMany}"/>
+                                    </h:selectManyListbox>
+                                </column>
+                                <column span="5">
+                                    <message for="attendees"/>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="3" span="3">
+                                    <h:commandButton value="Create" styleClass="actionButton" action="#{appointmentController.doCreateAppointment(loginController.loggedInClient)}" rendered="#{appointmentController.editingAppointment.id eq null}" />
+                                    <h:commandButton value="Edit" styleClass="actionButton" action="#{appointmentController.doEditAppointment(loginController.loggedInClient)}" rendered="#{(appointmentController.editingAppointment.id ne null) and (appointmentController.editingAppointment.creator eq loginController.loggedInClient)}" />
+                                </column>
+                            </row>
+                        </h:form>
+                    </column>
+                </row>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

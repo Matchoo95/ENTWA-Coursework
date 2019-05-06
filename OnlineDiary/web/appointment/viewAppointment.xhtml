@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="../resources/template/commonPrivateLayout.xhtml">
+            <ui:define name="header">
+                <h:form>
+                    <h:commandLink action="browseAppointments" onclick="history.go(-1);return false;"><icon name="glyphicon-arrow-up" /></h:commandLink>
+                </h:form>
+                <h1>
+                    <h:outputText value="Viewing appointment: #{appointmentController.editingAppointment.id}"/>
+                    (
+                    <h:outputText id="start" value="#{appointmentController.editingAppointment.startTime.time}">
+                        <f:convertDateTime pattern = "HH:mm dd/MM/YYYY" />
+                    </h:outputText>
+                    )
+                </h1>
+            </ui:define>
+            <ui:define name="content">
+                <row>
+                    <column styleClass="contentBackground" span="12">
+                        <h:form id="viewAppointmentForm">
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="creator">Owner</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <h:outputText id="creator" value="#{appointmentController.editingAppointment.creator.username}"/>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="start">Start</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <h:outputText id="start" value="#{appointmentController.editingAppointment.startTime.time}">
+                                        <f:convertDateTime pattern = "HH:mm dd/MM/YYYY" />
+                                    </h:outputText>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="end">End</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <h:outputText id="end" value="#{appointmentController.editingAppointment.endTime.time}">
+                                        <f:convertDateTime pattern = "HH:mm dd/MM/YYYY" />
+                                    </h:outputText>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="description">Description</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <h:outputText id="description" value="#{appointmentController.editingAppointment.description}"/>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="1" span="2">
+                                    <h:outputLabel for="attendees">Attendees</h:outputLabel>
+                                </column>
+                                <column span="3">
+                                    <h:selectManyListbox id="attendees" label="Attendees">
+                                        <f:selectItems value="#{appointmentController.editingAppointment.attendees}"/>
+                                    </h:selectManyListbox>
+                                </column>
+                            </row>
+                            <row>
+                                <column offset="3" span="3">
+                                    <h:commandButton value="Back" styleClass="actionButton" onclick="history.go(-1);return false;" action="#{startController.goToBrowseAppointments()}"/>
+                                </column>
+                            </row>
+                        </h:form>
+                    </column>
+                </row>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

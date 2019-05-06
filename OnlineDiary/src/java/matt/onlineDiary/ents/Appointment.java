@@ -12,6 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -23,13 +30,23 @@ public class Appointment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private String title;
+    @NotNull
     private String description;
-    private Timestamp startDate;
-    private Timestamp endDate;
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar startDate;
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)    
+    private Calendar endDate;
+    @NotNull
+    @OneToMany(targetEntity = User.class)
     private List<User> peopleInvolved;
-    private User creator;
-
+    @NotNull
+    @ManyToOne(targetEntity = User.class)
+    private User admin;
+    
     public Long getId() {
         return id;
     }    
@@ -54,19 +71,19 @@ public class Appointment implements Serializable {
         this.description = description;
     }
 
-    public Timestamp getStartDate() {
+    public Calendar getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
+    public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
     }
 
-    public Timestamp getEndDate() {
+    public Calendar getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Timestamp endDate) {
+    public void setEndDate(Calendar endDate) {
         this.endDate = endDate;
     }
 
@@ -78,14 +95,13 @@ public class Appointment implements Serializable {
         this.peopleInvolved = peopleInvolved;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getAdmin() {
+        return admin;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setAdmin(User admin) {
+        this.admin = admin;
     }
-
 
     @Override
     public int hashCode() {
@@ -108,5 +124,4 @@ public class Appointment implements Serializable {
     public String toString() {
         return "matt.onlineDiary.ents.AppointmentService[ id=" + id + " ]";
     }
-    
 }
