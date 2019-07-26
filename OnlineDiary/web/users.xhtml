@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Online Diary</title>
+        <link rel="stylesheet" href="styles/style.css" />
+        <link rel="stylesheet" href="styles/navbar.css" />
+    </h:head>
+    <h:body>
+        <h1>Online Diary</h1>
+        
+        <ul>
+            <li><h:link value="Home" outcome="index.xhtml"/></li>
+            <li><h:link value="Start" outcome="start.xhtml"/></li>
+            <li><h:link value="Appointments" outcome="appointments.xhtml"/></li>
+            <li><h:link value="Users" outcome="users.xhtml"/></li>
+        </ul>
+
+        <h1>Update User Details</h1>
+        
+        <div>
+            <h:form>
+                <div>
+                    <h:outputText value="Firstname:" />
+                    <br />
+                    <h:inputText id="firstName" value=""></h:inputText>
+                </div>
+            
+                <div>
+                    <h:outputText value="Lastname: " />
+                    <br />
+                    <h:inputText id="lastName" value=""></h:inputText>
+                </div>
+            
+            
+                <div>
+                    <h:outputText value="Email Address: " />
+                    <br />
+                    <h:inputText id="email" value=""></h:inputText>
+                </div>
+            
+            
+                <div>
+                    <h:outputText value="Address: " />
+                    <br />
+                    <h:inputText id="address" value=""></h:inputText>
+                </div>
+            
+                <div>
+                    <h:outputText value="Postcode:  " />
+                    <br />
+                    <h:inputText id="postcode" value=""></h:inputText>
+                </div>
+            
+                <div>
+                    <h:outputText value="Phone Number:  " />
+                    <br />
+                    <h:inputText id="phoneNumber" value=""></h:inputText>
+                </div>
+            
+                <div>
+                    <h:outputText value="Username:  " />
+                    <br />
+                    <h:inputText id="username" value=""></h:inputText>
+                </div>
+            
+                <div>
+                    <h:outputText value="Password:  " />
+                    <br />
+                    <h:inputText id="password" value=""></h:inputText>
+                </div>
+
+                <div>
+                    <h:commandButton value="Update User"></h:commandButton>
+                </div>
+            </h:form>
+        </div>                 
+    </h:body>
+</html>
+
+        
+
+        

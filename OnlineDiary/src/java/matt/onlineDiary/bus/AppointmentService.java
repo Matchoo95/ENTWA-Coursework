@@ -24,15 +24,32 @@ public class AppointmentService {
     @EJB
     private AppointmentFacade aF;
 
+    /**
+     *
+     * @param appointment
+     * @return
+     */
     public Appointment appointmentToEdit(Appointment appointment) {
         aF.edit(appointment);
         return appointment;
     }
 
-   public Appointment getAppointment(Appointment appointment) {
+    /**
+     *
+     * @param appointment
+     * @return
+     */
+    public Appointment getAppointment(Appointment appointment) {
         return aF.find(appointment.getId());
     }
 
+    /**
+     *
+     * @param appointment
+     * @return
+     * @throws EndStartTimeException
+     * @throws ClashException
+     */
     public Appointment createNewAppointment(Appointment appointment) throws EndStartTimeException, ClashException {
         if (appointment.getEndDate().before(appointment.getStartDate())) {
             throw new EndStartTimeException(appointment);
@@ -44,19 +61,38 @@ public class AppointmentService {
         return appointment;       
     }
     
+    /**
+     *
+     * @param appointment
+     * @return
+     */
     public Appointment removeAppointment(Appointment appointment) {
         aF.remove(appointment);
         return appointment;
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public List<Appointment> searchForAppointment(User user) {
         return aF.search(user);
     }
 
+    /**
+     *
+     * @param date
+     * @return
+     */
     public List<Appointment> searchForAppointment(Date date) {
         return aF.search(date);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Appointment> getAllAppointments() {
         return aF.findAll();
     }

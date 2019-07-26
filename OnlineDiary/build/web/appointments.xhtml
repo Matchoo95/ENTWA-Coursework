@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Online Diary</title>
+        <link rel="stylesheet" href="styles/style.css" />
+        <link rel="stylesheet" href="styles/navbar.css" />
+    </h:head>
+    <h:body>
+        <h1>Online Diary</h1>
+        
+        <ul>
+            <li><h:link value="Home" outcome="index.xhtml"/></li>
+            <li><h:link value="Start" outcome="start.xhtml"/></li>
+            <li><h:link value="Appointments" outcome="appointments.xhtml"/></li>
+            <li><h:link value="Users" outcome="users.xhtml"/></li>
+        </ul>
+
+            <h1>Appointments</h1>
+
+                <h:form>
+                    <h:commandButton styleClass="navButton" action="#{startController.goToCreateAppointment()}" value="Create new appointment" immediate="true">                               
+                        <f:setPropertyActionListener target="#{appointmentController.editAppointment}" value="#{appointmentController.clearEditAppointment()}" />
+                    </h:commandButton>                      
+                    <h:commandButton styleClass="navButton" action="#{startController.goToBrowseAppointments()}" value="Browse appointments" />             
+                </h:form>
+
+    </h:body>
+</html>

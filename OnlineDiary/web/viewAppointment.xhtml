@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Online Diary</title>
+        <link rel="stylesheet" href="styles/style.css" />
+        <link rel="stylesheet" href="styles/navbar.css" />
+    </h:head>
+    <h:body>
+        <h1>View Appointment</h1>
+    <h:body>
+        <div>
+        <ul>
+            <li><h:link value="Home" outcome="home.xhtml"/></li>
+        </ul>
+            
+            <div>
+                <div>
+                    <div>
+                        <h:link value="Appointments" outcome="appointment" />
+                    </div>
+                    <div>
+                        <h:link value="User" outcome="user" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <div>
+                <h:link value="View Appointments"/>
+            </div>
+                
+            <h3><h:outputText value="#{appointmentController.viewAppointment.title}" /></h3>
+            <div class="description"><h:outputText value="#{appointmentController.viewAppointment.description}" /></div>
+                
+            <p>Start: <h:outputText value="#{appointmentController.viewAppointment.startDate}" /></p>
+            <p>End: <h:outputText value="#{appointmentController.viewAppointment.endDate}" /></p>
+                
+            <p>People Involved:</p>
+
+        </div>
+    </h:body>
+</html>
